@@ -38,7 +38,8 @@ The Node Hub and résumé artifacts do not belong in this repository. The portfo
 │   ├── images/favicon.svg
 │   └── js/
 │       ├── case-studies.js      # Case-study-to-repository mapping
-│       └── repositories.js      # GitHub repository directory
+│       ├── repositories.js      # GitHub repository directory
+│       └── scrollspy.js         # Active-section navigation tracking
 ├── robots.txt
 ├── sitemap.xml
 └── .nojekyll                    # Disables Jekyll processing

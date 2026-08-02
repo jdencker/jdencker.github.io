@@ -1,10 +1,8 @@
 /*
  * jdencker.github.io — portfolio styles
  *
- * Single stylesheet for the portfolio. Light mode only, by decision — the
- * tokens below make a future dark block cheap, but do not add one now.
- * Keep portfolio styles isolated from the independently deployed Node Hub
- * and résumé project sites.
+ * Single stylesheet for the portfolio. Light mode only.
+ * Keep portfolio styles isolated from the independently deployed case studies
  */
 
 /* ===== Design tokens ===== */
@@ -48,6 +46,7 @@ html { scroll-behavior: smooth; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .navlinks::after {transition: none;}
 }
 
 body {
@@ -123,12 +122,34 @@ a:focus-visible {
 }
 
 .navlinks {
-  text-decoration: none;
-  font-size: 13px;
+  position: relative;
   color: var(--muted);
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 150ms ease;
 }
 
-.navlinks:hover { color: var(--text); }
+.navlinks::after {
+  position: absolute;
+  right: 0;
+  bottom: -6px;
+  left: 0;
+  height: 1px;
+  background: var(--text);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 150ms ease;
+}
+
+.navlinks:hover,
+.navlinks.is-active {
+  color: var(--text);
+}
+
+.navlinks.is-active::after {
+  transform: scaleX(1);
+}
 
 .btn-resume {
   text-decoration: none;
