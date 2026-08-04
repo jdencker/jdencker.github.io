@@ -42,11 +42,24 @@
 
 * { box-sizing: border-box; }
 
+@view-transition {
+  navigation: auto;
+}
+
+.brand {
+  view-transition-name: site-brand;
+}
+
+::view-transition-group(site-brand) {
+  animation-duration: 320ms;
+}
+
 html { scroll-behavior: smooth; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .navlinks::after {transition: none;}
+  ::view-transition-group(site-brand) { animation-duration: 0s; }
 }
 
 body {
@@ -63,6 +76,21 @@ a:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 3px;
 }
+
+.skip-link {
+  position: fixed;
+  z-index: 100;
+  top: 8px;
+  left: 8px;
+  padding: 10px 14px;
+  background: var(--text);
+  color: var(--bg);
+  font: 500 12px 'JetBrains Mono', monospace;
+  text-decoration: none;
+  transform: translateY(calc(-100% - 16px));
+}
+
+.skip-link:focus { transform: translateY(0); }
 
 ::selection {
   background: var(--text);
@@ -172,7 +200,7 @@ main {
   max-width: 1060px;
   margin: 0 auto;
   padding: 0 32px;
-  scroll-margin-top: 80px;   /* brand link targets #top on <main> */
+  scroll-margin-top: 80px;   /* brand and skip links target <main> */
 }
 
 /* ===== Hero ===== */
@@ -480,6 +508,7 @@ main {
 }
 
 .row-title {
+  margin: 0;
   font-size: 16px;
   font-weight: 600;
 }
@@ -552,6 +581,40 @@ main {
 }
 
 /* ===== Open Source ===== */
+
+.repo-view-toggle {
+  display: inline-flex;
+  margin: 4px 0 14px;
+  border: 1px solid var(--line-strong);
+}
+
+.repo-view-button {
+  appearance: none;
+  margin: 0;
+  padding: 7px 11px;
+  border: 0;
+  background: transparent;
+  color: var(--faint);
+  cursor: pointer;
+  font: 500 10px 'JetBrains Mono', monospace;
+}
+
+.repo-view-button + .repo-view-button {
+  border-left: 1px solid var(--line-strong);
+}
+
+.repo-view-button:hover,
+.repo-view-button[aria-pressed="true"] {
+  background: var(--text);
+  color: var(--bg);
+}
+
+.repo-view-button:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--text);
+  outline-offset: 3px;
+}
 
 .repo-head {
   display: grid;
@@ -632,6 +695,18 @@ main {
   gap: 7px;
   flex-wrap: wrap;
   padding-top: 2px;
+}
+
+.repo-status {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.repo-status a {
+  color: var(--text);
+  text-underline-offset: 3px;
 }
 
 /* ===== Contact footer ===== */

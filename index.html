@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -24,10 +24,11 @@
     <link rel="stylesheet" href="./assets/css/styles.css">
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
     <header class="site-header">
       <div class="header-inner">
-        <a class="brand" href="#top">
+        <a class="brand" href="#main-content">
           <span class="brand-name">Jon Dencker</span>
           <span class="tagline">/ hardware → software → data</span>
         </a>
@@ -50,7 +51,7 @@
       </div>
     </header>
 
-    <main id="top">
+    <main id="main-content" tabindex="-1">
 
       <!-- ===== Hero ===== -->
       <section class="hero">
@@ -147,7 +148,7 @@
               <div class="card-actions">
                 <a class="card-primary" href="./case-studies/node-hub/">Case study →</a>
                 <div class="card-secondary">
-                  <a class="card-link" href="https://jdencker.github.io/node-hub/" target="_blank" rel="noopener noreferrer">Live demo ↗</a>
+                  <a class="card-link" href="https://jdencker.github.io/node-hub/" target="_blank" rel="noopener noreferrer">Interactive demo ↗</a>
                   <a class="card-link" href="https://github.com/jdencker/node-hub" target="_blank" rel="noopener noreferrer">Codebase ↗</a>
                 </div>
               </div>
@@ -209,7 +210,7 @@
           <div class="row">
             <span class="row-dates">2024 — Present</span>
             <div>
-              <div class="row-title">Data Strategy &amp; Integration Lead</div>
+              <h3 class="row-title">Data Strategy &amp; Integration Lead</h3>
               <p class="row-body">Built the command's first unified data environment, connecting 20+ enterprise systems through automated pipelines to power an application used across the organization, including by the commanding general. The work cut the time to answer leadership questions from a day to minutes, increased reporting throughput by 50% while nearly eliminating errors, and shaped a data strategy that redirected spending within a $14M technology portfolio — delivering three top workforce priorities and $4M in taxpayer savings.</p>
               <div class="creds">
                 <span class="creds-label">Credentials</span>
@@ -222,7 +223,7 @@
           <div class="row">
             <span class="row-dates">2022 — 2024</span>
             <div>
-              <div class="row-title">Product Lead</div>
+              <h3 class="row-title">Product Lead</h3>
               <p class="row-body">Scaled a product from concept pitch to an enterprise application deployed across multiple classified DoD networks, delivering operationally relevant data to the point of need. Led a cross-functional team of 20 — military and contractors — with a $4M annual budget. Partnered with the Army CIO and Army Cyber Command to demonstrate that a security-focused CI/CD pipeline could meet the intent of Army policy while supporting multiple daily deployments across classification levels — delivering capabilities 10x faster than standard procurement.</p>
               <div class="creds">
                 <span class="creds-label">Credentials</span>
@@ -235,7 +236,7 @@
           <div class="row">
             <span class="row-dates">2018 — 2020</span>
             <div>
-              <div class="row-title">Infantry Officer</div>
+              <h3 class="row-title">Infantry Officer</h3>
               <p class="row-body">Led paratroopers as a rifle platoon leader and battalion logistics officer.</p>
               <div class="creds">
                 <span class="creds-label">Credentials</span>
@@ -252,12 +253,12 @@
           <div class="rows">
             <div class="row">
               <span class="row-dates">2022 — Present</span>
-              <div class="row-title">Technical Advisor</div>
+              <h3 class="row-title">Technical Advisor</h3>
               <span class="org">Swinergy, Inc.<br>Minneapolis, MN (Remote)</span>
             </div>
             <div class="row">
               <span class="row-dates">2024</span>
-              <div class="row-title">Technical Consultant</div>
+              <h3 class="row-title">Technical Consultant</h3>
               <span class="org">Africa Farm Trade<br>Nairobi, Kenya (Remote)</span>
             </div>
           </div>
@@ -273,7 +274,7 @@
           <div class="row">
             <span class="row-dates">2020 — 2022</span>
             <div>
-              <div class="row-title">Carnegie Mellon University</div>
+              <h3 class="row-title">Carnegie Mellon University</h3>
               <div class="degree">
                 <div class="degree-name">MS, Information Systems Management</div>
                 <div class="degree-detail">Business intelligence &amp; data analytics. Army-sponsored.</div>
@@ -288,7 +289,7 @@
           <div class="row">
             <span class="row-dates">2013 — 2017</span>
             <div>
-              <div class="row-title">United States Military Academy</div>
+              <h3 class="row-title">United States Military Academy</h3>
               <div class="degree">
                 <div class="degree-name">BS, Electrical Engineering &amp; Mathematics</div>
                 <div class="degree-detail">Concentrations in optical signal processing &amp; applied mathematics.</div>
@@ -310,87 +311,23 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            All repos ↗
+            GitHub profile ↗
           </a>
         </div>
 
-        <div class="repo-head">
+        <div class="repo-view-toggle" data-repo-view-toggle role="group" aria-label="Repository view" hidden>
+          <button class="repo-view-button" type="button" data-repo-view="featured" aria-pressed="true">Featured</button>
+          <button class="repo-view-button" type="button" data-repo-view="all" aria-pressed="false">All repositories</button>
+        </div>
+
+        <div class="repo-head" data-repo-head hidden>
           <span>Repository</span><span>Tags</span>
         </div>
 
-        <div id="repo-list">
-        <div class="repo-row" data-repo="node-hub">
-          <div>
-            <div class="repo-title-line">
-              <a class="repo-name" href="https://github.com/jdencker/node-hub" target="_blank" rel="noopener noreferrer">node-hub</a>
-            </div>
-            <p class="repo-desc">Central hub service and React dashboard for a fleet of Raspberry Pi sensor nodes.</p>
-          </div>
-          <div class="repo-tags">
-            <span class="chip">FastAPI</span>
-            <span class="chip">React</span>
-            <span class="chip">PostgreSQL</span>
-            <span class="chip">Docker</span>
-          </div>
-        </div>
-
-        <div class="repo-row" data-repo="atlas-scientific-sensor-pi-api">
-          <div>
-            <div class="repo-title-line">
-              <a class="repo-name" href="https://github.com/jdencker/atlas-scientific-sensor-pi-api" target="_blank" rel="noopener noreferrer">atlas-scientific-sensor-pi-api</a>
-            </div>
-            <p class="repo-desc">Raspberry Pi API for discovering and reading Atlas Scientific EZO pH and RTD sensors over FTDI USB.</p>
-          </div>
-          <div class="repo-tags">
-            <span class="chip">Python</span>
-            <span class="chip">FastAPI</span>
-            <span class="chip">FTDI/EZO hardware</span>
-          </div>
-        </div>
-
-        <div class="repo-row" data-repo="rpi-wireguard-vpn-router">
-          <div>
-            <div class="repo-title-line">
-              <a class="repo-name" href="https://github.com/jdencker/rpi-wireguard-vpn-router" target="_blank" rel="noopener noreferrer">rpi-wireguard-vpn-router</a>
-            </div>
-            <p class="repo-desc">A self-hosted WireGuard VPN router for Raspberry Pi and other Linux devices.</p>
-          </div>
-          <div class="repo-tags">
-            <span class="chip">WireGuard</span>
-            <span class="chip">Linux networking</span>
-            <span class="chip">iptables</span>
-          </div>
-        </div>
-
-        <div class="repo-row" data-repo="resume">
-          <div>
-            <div class="repo-title-line">
-              <a class="repo-name" href="https://github.com/jdencker/resume" target="_blank" rel="noopener noreferrer">resume</a>
-            </div>
-            <p class="repo-desc">Single-page LaTeX resume with pinned Docker builds, a lint suite, and versioned Pages releases.</p>
-          </div>
-          <div class="repo-tags">
-            <span class="chip">LaTeX</span>
-            <span class="chip">GitHub Actions</span>
-            <span class="chip">Make</span>
-            <span class="chip">Docker</span>
-          </div>
-        </div>
-
-        <div class="repo-row" data-repo="jdencker.github.io">
-          <div>
-            <div class="repo-title-line">
-              <a class="repo-name" href="https://github.com/jdencker/jdencker.github.io" target="_blank" rel="noopener noreferrer">jdencker.github.io</a>
-            </div>
-            <p class="repo-desc">This site — plain HTML and CSS, no build step, served straight from the repo root.</p>
-          </div>
-          <div class="repo-tags">
-            <span class="chip">HTML</span>
-            <span class="chip">CSS</span>
-            <span class="chip">GitHub Pages</span>
-          </div>
-        </div>
-        </div>
+        <div id="repo-list" aria-live="polite" aria-busy="false"></div>
+        <noscript>
+          <p class="repo-status">Repository data requires JavaScript. <a href="https://github.com/jdencker">View all repositories on GitHub ↗</a></p>
+        </noscript>
       </section>
 
     </main>
