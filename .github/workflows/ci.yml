@@ -43,6 +43,7 @@ jobs:
             --root-dir "${{ github.workspace }}"
             --verbose
             --no-progress
+            --exclude-loopback
             --accept 200,204,206,429
             --exclude "^https://www\.linkedin\.com/"
             --exclude "^https://fonts\.gstatic\.com/?$"
