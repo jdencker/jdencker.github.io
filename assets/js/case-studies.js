@@ -6,7 +6,11 @@ export const caseStudies = [
     slug: "node-hub",
     title: "Node Hub",
     path: "/case-studies/node-hub/",
-    repos: ["node-hub", "atlas-scientific-sensor-pi-api"],
+    repos: [
+      "node-hub",
+      "atlas-scientific-sensor-pi-api",
+      "rpi-wireguard-vpn-router",
+    ],
   },
   {
     slug: "resume-as-code",

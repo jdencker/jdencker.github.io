@@ -1,22 +1,427 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex">
-    <title>Node Hub Case Study — Jonathan Dencker</title>
+    <meta name="description" content="How Jonathan Dencker built an end-to-end Raspberry Pi lab monitoring platform spanning sensors, APIs, data architecture, dashboards, backups, and secure remote access.">
+    <link rel="canonical" href="https://jdencker.github.io/case-studies/node-hub/">
+    <meta property="og:title" content="Node Hub — An End-to-End Process Monitoring Platform">
+    <meta property="og:description" content="A case study in carrying physical sensor data through software, storage, visualization, and secure remote access.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://jdencker.github.io/case-studies/node-hub/">
+    <meta property="og:image" content="https://jdencker.github.io/assets/images/node-hub-dashboard.png">
+    <title>Node Hub — An End-to-End Process Monitoring Platform — Jonathan Dencker</title>
     <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/styles.css">
+    <link rel="stylesheet" href="../../assets/css/case-study.css">
   </head>
   <body>
-    <main class="notfound">
-      <div class="eyebrow">Case Study</div>
-      <h1>Node Hub</h1>
-      <p>Case study forthcoming.</p>
-      <a class="section-link" href="../../#work">Return to selected work →</a>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="site-header case-site-header">
+      <div class="header-inner case-header-inner">
+        <a class="btn-resume case-back" href="../../#work">← Portfolio</a>
+        <nav class="site-nav case-header-nav" aria-label="Case study">
+          <a class="navlinks" href="#overview">Overview</a>
+          <a class="navlinks navsecondary" href="#hardware">Hardware</a>
+          <a class="navlinks navsecondary" href="#architecture">Architecture</a>
+          <a class="navlinks navsecondary" href="#evolution">Development</a>
+          <a class="navlinks" href="#preview">Demo</a>
+        </nav>
+        <a class="brand case-brand" href="#main-content">
+          <span class="brand-name">Jon Dencker</span>
+          <span class="tagline">/ Node Hub Case Study</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="case-study" id="main-content" tabindex="-1">
+      <aside class="release-note" aria-label="Release approval">
+        <span>Release Note</span>
+        <p>This case study has been sanitized to remove sensitive intellectual property and approved for public release by <a href="https://www.swinergy.com/" target="_blank" rel="noopener noreferrer">Swinergy, Inc. ↗</a></p>
+      </aside>
+
+      <header class="case-hero">
+        <div class="eyebrow">Case Study · Fall 2023—Summer 2024</div>
+        <h1>
+          <span class="case-title-primary">Node Hub</span>
+          <span class="case-title-secondary">An End-to-End Process Monitoring Platform</span>
+        </h1>
+        <p class="case-deck">Monitoring three stages of an anaerobic digestion prototype—from sensor readings to storage, visualization, backups, and secure remote access.</p>
+
+        <dl class="case-meta-compact">
+          <div>
+            <dt>Client</dt>
+            <dd><a href="https://www.swinergy.com/" target="_blank" rel="noopener noreferrer">Swinergy, Inc. ↗</a></dd>
+          </div>
+          <div>
+            <dt>Role</dt>
+            <dd>Technical Advisor</dd>
+          </div>
+        </dl>
+      </header>
+
+      <section class="case-section" id="overview" aria-labelledby="overview-title">
+        <div class="case-section-heading">
+          <h2 id="overview-title">Overview</h2>
+        </div>
+
+        <div class="executive-grid">
+          <article>
+            <div class="case-kicker">Problem</div>
+            <p>Swinergy was validating a patented, three-stage anaerobic digestion process in a small-scale lab replica to reduce the technical risk of its full-scale build. Collecting readings manually was tedious, and maintaining a consistent hourly cadence required team members to check the process at odd hours, including overnight through remote cameras. For a small team with limited capacity, time spent collecting data was time not spent improving the process.</p>
+          </article>
+          <article>
+            <div class="case-kicker">Solution</div>
+            <p>I designed and deployed a monitoring platform that collected sensor readings at configurable intervals, stored them in a database, moved backup data files to cloud storage, and gave the team a single view of current conditions and historical trends. A secure VPN provided remote access to the platform and its sensor nodes.</p>
+          </article>
+          <article>
+            <div class="case-kicker">Outcome</div>
+            <p>The deployed platform enabled remote monitoring and replaced manual data recording with an automated, reliable process. The successful prototype reduced the technical risk of scaling the process and supported Swinergy’s move toward its first full-scale facility.</p>
+          </article>
+        </div>
+
+        <div class="metric-grid" role="group" aria-label="Project outcomes">
+          <div class="metric">
+            <strong>&lt;$1K</strong>
+            <span>incremental monitoring hardware, excluding existing sensors</span>
+          </div>
+          <div class="metric">
+            <strong>3</strong>
+            <span>independently monitored process stages</span>
+          </div>
+          <div class="metric">
+            <strong>5</strong>
+            <span>Raspberry Pis across sensing, hosting, and secure access</span>
+          </div>
+          <div class="metric">
+            <strong>4 months</strong>
+            <span>from the first lab deployment to V3</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section" id="hardware" aria-labelledby="constraint-title">
+        <div class="case-section-heading">
+          <h2 id="constraint-title">Hardware Design Decisions</h2>
+        </div>
+        <div class="case-copy-grid">
+          <div>
+            <p class="case-lead">Swinergy, like all early-stage startups, was sensitive to unnecessary capital costs. My design delivered production results for a fraction of the cost.</p>
+          </div>
+          <div class="case-prose">
+            <p>Raspberry Pis are inexpensive Linux computers running from SD cards. The prototype used five of them, along with inexpensive cabling and an approximately $10 EZO USB carrier board for each sensor. The incremental monitoring hardware cost less than $1,000. Industrial controls were a better choice for a full-scale facility, but were too expensive before the process had been proven.</p>
+            <p>The Hub was containerized so it was easily portable from the initial Raspberry Pi hardware. This decision allows it to move to a Linux thin client backed by an uninterruptible power supply—a better long-term host for the database and central application—without changing the deployment model.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section" id="architecture" aria-labelledby="architecture-title">
+        <div class="case-section-heading">
+          <h2 id="architecture-title">Software + Network Architecture</h2>
+        </div>
+        <p class="case-lead architecture-intro">Three sensor nodes collected readings from the tanks. The Hub scheduled collection, stored the data, and served the dashboard. WireGuard provided remote access without exposing the application or sensor APIs to the internet.</p>
+
+        <figure class="system-map">
+          <div class="remote-path" role="group" aria-label="Remote access path">
+            <div class="architecture-node architecture-node-quiet">
+              <span class="architecture-label">Approved device</span>
+              <strong>Remote operator</strong>
+            </div>
+            <span class="architecture-arrow" aria-hidden="true">→</span>
+            <div class="architecture-node architecture-node-quiet">
+              <span class="architecture-label">Encrypted tunnel</span>
+              <strong>WireGuard</strong>
+            </div>
+            <span class="architecture-arrow" aria-hidden="true">→</span>
+            <div class="architecture-node architecture-node-accent repo-architecture-card" data-repo-card>
+              <span class="architecture-repo-tag">Repository</span>
+              <span class="architecture-label">Raspberry Pi 05</span>
+              <div class="architecture-title-row">
+                <img class="architecture-logo" src="../../assets/images/logo-raspberry-pi.svg" alt="" width="24" height="24">
+                <strong>VPN gateway</strong>
+              </div>
+              <small>Keys · routing · NAT</small>
+              <a class="architecture-card-select" href="https://github.com/jdencker/rpi-wireguard-vpn-router" target="_blank" rel="noopener noreferrer" aria-label="View the WireGuard VPN router repository"></a>
+              <span class="architecture-repo-link">Click to view codebase ↗</span>
+            </div>
+            <span class="architecture-arrow" aria-hidden="true">→</span>
+            <div class="architecture-node architecture-node-quiet">
+              <span class="architecture-label">Existing router</span>
+              <strong>Lab network</strong>
+              <small>UDP port forwarding</small>
+            </div>
+          </div>
+
+          <div class="lab-boundary">
+            <div class="boundary-label">Trusted lab LAN · application services never exposed directly</div>
+
+            <div class="tank-grid">
+              <article class="tank-node">
+                <span class="architecture-label">Process stage A</span>
+                <h3>Tank A</h3>
+                <p>Temperature · pressure · pH</p>
+                <div class="node-stack repo-architecture-card" data-repo-card>
+                  <span class="architecture-repo-tag">Repository</span>
+                  <span>EZO USB carriers</span>
+                  <div class="architecture-title-row">
+                    <img class="architecture-logo" src="../../assets/images/logo-raspberry-pi.svg" alt="" width="24" height="24">
+                    <strong>Sensor Pi 01</strong>
+                  </div>
+                  <small>FastAPI · FTDI USB</small>
+                  <a class="architecture-card-select" href="https://github.com/jdencker/atlas-scientific-sensor-pi-api" target="_blank" rel="noopener noreferrer" aria-label="View the sensor API repository for Sensor Pi 01"></a>
+                  <span class="architecture-repo-link">Click to view codebase ↗</span>
+                </div>
+              </article>
+              <article class="tank-node">
+                <span class="architecture-label">Process stage B</span>
+                <h3>Tank B</h3>
+                <p>Temperature · pressure · pH</p>
+                <div class="node-stack repo-architecture-card" data-repo-card>
+                  <span class="architecture-repo-tag">Repository</span>
+                  <span>EZO USB carriers</span>
+                  <div class="architecture-title-row">
+                    <img class="architecture-logo" src="../../assets/images/logo-raspberry-pi.svg" alt="" width="24" height="24">
+                    <strong>Sensor Pi 02</strong>
+                  </div>
+                  <small>FastAPI · FTDI USB</small>
+                  <a class="architecture-card-select" href="https://github.com/jdencker/atlas-scientific-sensor-pi-api" target="_blank" rel="noopener noreferrer" aria-label="View the sensor API repository for Sensor Pi 02"></a>
+                  <span class="architecture-repo-link">Click to view codebase ↗</span>
+                </div>
+              </article>
+              <article class="tank-node">
+                <span class="architecture-label">Process stage C</span>
+                <h3>Tank C</h3>
+                <p>Temperature · pressure · pH</p>
+                <div class="node-stack repo-architecture-card" data-repo-card>
+                  <span class="architecture-repo-tag">Repository</span>
+                  <span>EZO USB carriers</span>
+                  <div class="architecture-title-row">
+                    <img class="architecture-logo" src="../../assets/images/logo-raspberry-pi.svg" alt="" width="24" height="24">
+                    <strong>Sensor Pi 03</strong>
+                  </div>
+                  <small>FastAPI · FTDI USB</small>
+                  <a class="architecture-card-select" href="https://github.com/jdencker/atlas-scientific-sensor-pi-api" target="_blank" rel="noopener noreferrer" aria-label="View the sensor API repository for Sensor Pi 03"></a>
+                  <span class="architecture-repo-link">Click to view codebase ↗</span>
+                </div>
+              </article>
+            </div>
+
+            <div class="collection-line">
+              <span aria-hidden="true">↓</span>
+              <strong>Serial-addressed readings over local REST APIs</strong>
+              <span aria-hidden="true">↓</span>
+            </div>
+
+            <div class="hub-node repo-architecture-card" data-repo-card>
+              <div class="hub-heading">
+                <div>
+                  <span class="architecture-label">Raspberry Pi 04 · Docker Compose</span>
+                  <div class="architecture-title-row">
+                    <img class="architecture-logo" src="../../assets/images/logo-raspberry-pi.svg" alt="" width="28" height="28">
+                    <h3>Node Hub</h3>
+                  </div>
+                </div>
+                <div class="hub-tags">
+                  <span class="architecture-repo-tag">Repository</span>
+                  <span class="hub-boundary">Same-origin application</span>
+                </div>
+              </div>
+              <div class="hub-services">
+                <div>
+                  <div class="service-heading">
+                    <span class="service-logo-pair">
+                      <img class="service-logo" src="../../assets/images/logo-react.svg" alt="" width="22" height="22">
+                      <img class="service-logo" src="../../assets/images/logo-vite.svg" alt="" width="22" height="22">
+                    </span>
+                    <strong>React + Vite</strong>
+                  </div>
+                  <span class="service-description">Operator dashboard</span>
+                </div>
+                <div>
+                  <div class="service-heading">
+                    <img class="service-logo" src="../../assets/images/logo-nginx.svg" alt="" width="22" height="22">
+                    <strong>nginx</strong>
+                  </div>
+                  <span class="service-description">Static UI + /api proxy</span>
+                </div>
+                <div>
+                  <div class="service-heading">
+                    <img class="service-logo" src="../../assets/images/logo-fastapi.svg" alt="" width="22" height="22">
+                    <strong>FastAPI</strong>
+                  </div>
+                  <span class="service-description">Polling + fleet control</span>
+                </div>
+                <div>
+                  <div class="service-heading">
+                    <img class="service-logo" src="../../assets/images/logo-postgresql.svg" alt="" width="22" height="22">
+                    <strong>Postgres</strong>
+                  </div>
+                  <span class="service-description">Configuration + history</span>
+                </div>
+              </div>
+              <a class="architecture-card-select" href="https://github.com/jdencker/node-hub" target="_blank" rel="noopener noreferrer" aria-label="View the Node Hub repository"></a>
+              <span class="architecture-repo-link hub-repo-link">Click to view codebase ↗</span>
+            </div>
+
+            <div class="data-egress">
+              <div class="architecture-node architecture-node-quiet">
+                <span class="architecture-label">Operators</span>
+                <strong>Query + download</strong>
+                <small>Current state · trend history · raw readings</small>
+              </div>
+              <span class="architecture-arrow" aria-hidden="true">→</span>
+              <div class="architecture-node architecture-node-quiet">
+                <span class="architecture-label">Daily export</span>
+                <strong>Backup CSV files</strong>
+                <small>Durable host-mounted copies</small>
+              </div>
+              <span class="architecture-arrow" aria-hidden="true">→</span>
+              <div class="architecture-node architecture-node-external">
+                <span class="architecture-label">External workflow</span>
+                <strong>Cloud backup</strong>
+                <small>Outside the public repositories</small>
+              </div>
+            </div>
+          </div>
+
+          <figcaption>Lab deployment using the existing router and local network.</figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section" id="evolution" aria-labelledby="evolution-title">
+        <div class="case-section-heading">
+          <h2 id="evolution-title">Iterative Development</h2>
+        </div>
+        <p class="case-lead evolution-intro">From February through June 2024, operator feedback and real hardware failures drove changes to recovery and configuration.</p>
+
+        <ol class="timeline">
+          <li>
+            <div class="timeline-date">Fall—Dec 2023</div>
+            <div>
+              <h3>Discovery</h3>
+              <p>Mapped the manual workflow, lab constraints, sensors, process stages, and required data.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-date">Feb 2024 · V1</div>
+            <div>
+              <h3>V1 Deployed</h3>
+              <p>The first sensor server maintained long-lived hardware connections. EZO carrier serials were configured in both the Hub and sensor server, so replacing a carrier required changes in two places. When a stale connection could not recover, the Pi restarted and systemd brought the API back automatically.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-date">Spring 2024</div>
+            <div>
+              <h3>Support and Iteration</h3>
+              <p>Updates separated sensor failures from node failures, improved visibility into unreachable hardware, and removed duplicated carrier configuration.</p>
+            </div>
+          </li>
+          <li>
+            <div class="timeline-date">Summer 2024 · V3</div>
+            <div>
+              <h3>V3 Deployed</h3>
+              <p>The Hub became the sole owner of fleet configuration and carrier-to-role mapping. Sensor servers discovered the EZO USB carriers attached to each Pi and served their readings. Individual connections could recover without restarting the node.</p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section class="case-section" id="preview" aria-labelledby="preview-title">
+        <div class="case-section-heading">
+          <h2 id="preview-title">Capability Demo</h2>
+        </div>
+        <div class="preview-heading">
+          <div>
+            <p class="case-lead">The demo uses the production React frontend with simulated data bundled into the frontend.</p>
+            <p class="preview-note">No backend, hardware, or live lab system is connected. In order to better demonstrate capability across a variety of node status scenarios, it shows one online node, one unreachable node with interrupted history, and one unconfigured node.</p>
+          </div>
+          <a class="case-button" href="https://jdencker.github.io/node-hub/" target="_blank" rel="noopener noreferrer">Open demo ↗</a>
+        </div>
+
+        <figure class="product-shot">
+          <img src="../../assets/images/node-hub-dashboard.png" alt="Node Hub dashboard showing current pH and temperature readings, an unreachable node, an unconfigured node, and recent trend charts" width="2223" height="1115" loading="lazy">
+          <figcaption>The same frontend ships in production and demo builds; only the data transport changes.</figcaption>
+        </figure>
+
+        <div class="capability-list">
+          <div><strong>Current readings and node reachability</strong></div>
+          <div><strong>Configurable trend history</strong></div>
+          <div><strong>Polling schedules and sensor configuration</strong></div>
+          <div><strong>Raw readings and CSV backup downloads</strong></div>
+        </div>
+      </section>
+
+      <section class="case-section" id="code" aria-labelledby="code-title">
+        <div class="case-section-heading">
+          <h2 id="code-title">Codebases</h2>
+        </div>
+        <p class="case-lead code-intro">The deployed system is represented by three public repositories.</p>
+
+        <div class="code-grid">
+          <article>
+            <div class="code-index">Edge · 01—03</div>
+            <h3>atlas-scientific-sensor-pi-api</h3>
+            <p>Discovers FTDI-based Atlas Scientific EZO pH and RTD circuits, manages hardware communication and per-device recovery, and exposes serial-addressed readings through FastAPI.</p>
+            <div class="tags">
+              <span class="chip">Python</span>
+              <span class="chip">FastAPI</span>
+              <span class="chip">FTDI / UART</span>
+              <span class="chip">systemd</span>
+            </div>
+            <a class="case-button repo-button" href="https://github.com/jdencker/atlas-scientific-sensor-pi-api" target="_blank" rel="noopener noreferrer">View repository ↗</a>
+          </article>
+          <article>
+            <div class="code-index">Application · 04</div>
+            <h3>node-hub</h3>
+            <p>Polls the sensor fleet, owns configuration and role mapping, persists time-series data, generates daily CSV backups, and serves the operator interface as a Docker Compose stack.</p>
+            <div class="tags">
+              <span class="chip">FastAPI</span>
+              <span class="chip">React</span>
+              <span class="chip">Postgres</span>
+              <span class="chip">Docker</span>
+              <span class="chip">nginx</span>
+            </div>
+            <a class="case-button repo-button" href="https://github.com/jdencker/node-hub" target="_blank" rel="noopener noreferrer">View repository ↗</a>
+          </article>
+          <article>
+            <div class="code-index">Network · 05</div>
+            <h3>rpi-wireguard-vpn-router</h3>
+            <p>Creates an encrypted entry point for approved remote devices, with public-key identity, IP forwarding, narrow peer routes, and NAT into the existing lab network.</p>
+            <div class="tags">
+              <span class="chip">WireGuard</span>
+              <span class="chip">Linux routing</span>
+              <span class="chip">iptables</span>
+              <span class="chip">PKI</span>
+            </div>
+            <a class="case-button repo-button" href="https://github.com/jdencker/rpi-wireguard-vpn-router" target="_blank" rel="noopener noreferrer">View repository ↗</a>
+          </article>
+        </div>
+      </section>
+
     </main>
+
+    <footer class="site-footer">
+      <div class="foot-inner">
+        <div class="foot-top">
+          <div>
+            <div class="foot-label">Continue exploring</div>
+            <a class="foot-mail" href="../../#work">← Return to selected work</a>
+          </div>
+          <div class="case-footer-meta">
+            <span>Jonathan Dencker</span>
+            <span>Node Hub Case Study</span>
+          </div>
+        </div>
+        <div class="foot-bottom">
+          <span>© 2026 Jonathan Dencker</span>
+          <span>Case study approved for public release</span>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="../../assets/js/scrollspy.js"></script>
   </body>
 </html>
