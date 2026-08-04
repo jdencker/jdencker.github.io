@@ -6,11 +6,11 @@ The site uses plain HTML, CSS, and browser-native JavaScript.
 
 ## Quick start
 
-1. Edit the site content in `index.html` and styles in `assets/css/styles.css`.
+1. Edit the relevant HTML, CSS, or JavaScript files.
 2. Preview locally with `python3 -m http.server 8080`.
-3. Open [http://localhost:8080](http://localhost:8080) and verify the page and external links.
+3. Open [http://localhost:8080](http://localhost:8080) and perform a final visual and interaction check.
 4. Commit the changes on a feature branch and push it to GitHub.
-5. Merge the branch into `main`; GitHub Pages publishes the updated site automatically.
+5. Wait for CI to pass, then merge into `main`; GitHub Pages publishes the updated site automatically.
 
 ## Site architecture
 
@@ -30,12 +30,21 @@ The Node Hub and résumé artifacts do not belong in this repository. The portfo
 .
 ├── index.html                   # Main portfolio page
 ├── 404.html                     # Not-found page
+├── .github/workflows/ci.yml     # Automated site quality gate
+├── .editorconfig                # Shared editor formatting defaults
+├── .htmlvalidate.json           # HTML validation rules used by CI
 ├── case-studies/                # One clean URL per case study
 │   ├── node-hub/index.html
 │   └── resume-as-code/index.html
 ├── assets/
-│   ├── css/styles.css           # Site styles and design tokens
-│   ├── images/favicon.svg
+│   ├── css/
+│   │   ├── styles.css           # Site styles and design tokens
+│   │   └── case-study.css       # Node Hub case-study layout
+│   ├── images/
+│   │   ├── README.md             # Image sources and trademark notes
+│   │   ├── favicon.svg
+│   │   ├── logo-*.svg           # Architecture technology marks
+│   │   └── node-hub-dashboard.png
 │   └── js/
 │       ├── case-studies.js      # Case-study-to-repository mapping
 │       ├── repositories.js      # GitHub repository directory
@@ -49,7 +58,7 @@ The Node Hub and résumé artifacts do not belong in this repository. The portfo
 
 `assets/js/repositories.js` fetches all public repositories owned by `jdencker` from the unauthenticated GitHub REST API. Names, descriptions, topics, languages, links, and repository state come from GitHub.
 
-The static repository rows in `index.html` remain visible if the API is unavailable or rate-limited - current limit is 60 requests / originating IP / hour.
+The **Featured** view contains repositories referenced by `assets/js/case-studies.js`, in mapping order. The **All repositories** view contains every public repository ordered by its most recent push. If the API is unavailable—or JavaScript is disabled—the page links directly to the GitHub profile instead of maintaining duplicate repository metadata.
 
 ## Case studies
 
@@ -77,6 +86,6 @@ Configure this repository under **Settings → Pages** with:
 - **Branch:** `main`
 - **Folder:** `/ (root)`
 
-Every push to `main` republishes the portfolio.
+Every push to `main` republishes the portfolio. Pull requests and pushes to `main` run CI first.
 
-Before merging, check the responsive layout, keyboard navigation, browser console, external links, and the static repository fallback with JavaScript disabled.
+CI validates HTML, JavaScript syntax, referenced assets, and links. Before merging, manually check the responsive layout, keyboard navigation, browser console, and the GitHub-profile fallback with JavaScript disabled.

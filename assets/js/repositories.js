@@ -1,8 +1,17 @@
-import { caseStudiesForRepo } from "./case-studies.js";
+import { caseStudies, caseStudiesForRepo } from "./case-studies.js";
 
 const GITHUB_USER = "jdencker";
 const REPOS_PER_PAGE = 100;
 const repoList = document.querySelector("#repo-list");
+const repoHead = document.querySelector("[data-repo-head]");
+const repoViewToggle = document.querySelector("[data-repo-view-toggle]");
+const repoViewButtons = [...document.querySelectorAll("[data-repo-view]")];
+const featuredRepoNames = [
+  ...new Set(caseStudies.flatMap(({ repos }) => repos)),
+];
+
+let publicRepos = [];
+let activeView = "featured";
 
 const topicLabels = new Map([
   ["api", "API"],
@@ -39,16 +48,12 @@ function appendBadge(parent, label) {
   parent.append(badge);
 }
 
-function decorateFallbackRows() {
-  for (const row of repoList?.querySelectorAll(".repo-row[data-repo]") || []) {
-    const heading = row.querySelector(".repo-title-line");
-    if (!heading) {
-      continue;
-    }
-
-    for (const caseStudy of caseStudiesForRepo(row.dataset.repo)) {
-      appendBadge(heading, caseStudy.title);
-    }
+function httpUrl(value) {
+  try {
+    const url = new URL(value);
+    return ["http:", "https:"].includes(url.protocol) ? url.href : null;
+  } catch {
+    return null;
   }
 }
 
@@ -80,10 +85,11 @@ function createRepoRow(repo) {
     appendBadge(heading, "Archived");
   }
 
-  if (repo.homepage) {
+  const homepageUrl = httpUrl(repo.homepage);
+  if (homepageUrl) {
     const homepage = document.createElement("a");
     homepage.className = "repo-homepage";
-    homepage.href = repo.homepage;
+    homepage.href = homepageUrl;
     homepage.target = "_blank";
     homepage.rel = "noopener noreferrer";
     homepage.textContent = "Live ↗";
@@ -129,7 +135,7 @@ async function fetchPublicRepos() {
     url.searchParams.set("per_page", String(REPOS_PER_PAGE));
     url.searchParams.set("page", String(page));
 
-    const response = await fetch(url);
+    const response = await fetch(url, { signal: AbortSignal.timeout(10_000) });
     if (!response.ok) {
       throw new Error(`GitHub API returned ${response.status}`);
     }
@@ -143,14 +149,52 @@ async function fetchPublicRepos() {
   }
 }
 
-function sortRepos(repos) {
-  return repos.sort((a, b) => {
-    if (a.archived !== b.archived) {
-      return Number(a.archived) - Number(b.archived);
-    }
+function featuredRepos(repos) {
+  const reposByName = new Map(repos.map((repo) => [repo.name, repo]));
+  return featuredRepoNames
+    .map((repoName) => reposByName.get(repoName))
+    .filter(Boolean);
+}
 
-    return new Date(b.pushed_at) - new Date(a.pushed_at);
-  });
+function recentlyPushedRepos(repos) {
+  return [...repos].sort(
+    (a, b) => new Date(b.pushed_at) - new Date(a.pushed_at),
+  );
+}
+
+function setActiveView(view) {
+  activeView = view;
+
+  for (const button of repoViewButtons) {
+    button.setAttribute(
+      "aria-pressed",
+      String(button.dataset.repoView === activeView),
+    );
+  }
+
+  const repos = activeView === "featured"
+    ? featuredRepos(publicRepos)
+    : recentlyPushedRepos(publicRepos);
+
+  repoList.replaceChildren(...repos.map(createRepoRow));
+}
+
+function showRepositoryMessage(message, includeLink = true) {
+  const status = document.createElement("p");
+  status.className = "repo-status";
+  status.append(message);
+
+  if (includeLink) {
+    status.append(" ");
+    const link = document.createElement("a");
+    link.href = `https://github.com/${GITHUB_USER}`;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "View all repositories on GitHub ↗";
+    status.append(link);
+  }
+
+  repoList.replaceChildren(status);
 }
 
 async function renderRepositories() {
@@ -158,16 +202,29 @@ async function renderRepositories() {
     return;
   }
 
+  repoList.setAttribute("aria-busy", "true");
+  showRepositoryMessage("Loading repository data…", false);
+
   try {
-    const repos = sortRepos(await fetchPublicRepos());
-    if (repos.length > 0) {
-      repoList.replaceChildren(...repos.map(createRepoRow));
+    publicRepos = await fetchPublicRepos();
+    if (publicRepos.length === 0) {
+      showRepositoryMessage("No public repositories were found.");
+      return;
     }
+
+    repoViewToggle.hidden = false;
+    repoHead.hidden = false;
+    setActiveView(activeView);
   } catch (error) {
-    // The committed HTML remains visible as a useful fallback.
-    console.warn("Unable to refresh repositories from GitHub; using fallback content.", error);
+    showRepositoryMessage("Repository data is temporarily unavailable.");
+    console.warn("Unable to load repositories from GitHub.", error);
+  } finally {
+    repoList.setAttribute("aria-busy", "false");
   }
 }
 
-decorateFallbackRows();
+for (const button of repoViewButtons) {
+  button.addEventListener("click", () => setActiveView(button.dataset.repoView));
+}
+
 renderRepositories();
