@@ -46,7 +46,6 @@ jobs:
             --exclude-loopback
             --accept 200,204,206,429
             --exclude "^https://www\.linkedin\.com/"
-            --exclude "^https://fonts\.gstatic\.com/?$"
             --exclude "^https://jdencker\.github\.io/case-studies/node-hub/?$"
             "./**/*.md"
             "./**/*.html"
