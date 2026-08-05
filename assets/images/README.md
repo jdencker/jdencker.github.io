@@ -4,6 +4,7 @@
 
 - `favicon.svg` is the portfolio favicon.
 - `node-hub-dashboard.png` is a screenshot of the public Node Hub interactive demo using simulated data. It does not contain live lab data.
+- `portfolio-preview.png` is the 1200×630 social-sharing image for the portfolio homepage.
 
 ## Technology marks
 

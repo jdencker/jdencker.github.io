@@ -40,11 +40,13 @@ The Node Hub and résumé artifacts do not belong in this repository. The portfo
 │   ├── css/
 │   │   ├── styles.css           # Site styles and design tokens
 │   │   └── case-study.css       # Node Hub case-study layout
+│   ├── fonts/                    # Self-hosted WOFF2 fonts and licenses
 │   ├── images/
 │   │   ├── README.md             # Image sources and trademark notes
 │   │   ├── favicon.svg
 │   │   ├── logo-*.svg           # Architecture technology marks
-│   │   └── node-hub-dashboard.png
+│   │   ├── node-hub-dashboard.png
+│   │   └── portfolio-preview.png # Homepage social-sharing image
 │   └── js/
 │       ├── case-studies.js      # Case-study-to-repository mapping
 │       ├── repositories.js      # GitHub repository directory
