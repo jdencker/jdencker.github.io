@@ -39,6 +39,7 @@ jobs:
       - name: Check links and referenced assets
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2
         with:
+          # LinkedIn blocks automated link checkers, causing false CI failures.
           args: >-
             --root-dir "${{ github.workspace }}"
             --verbose
@@ -46,8 +47,6 @@ jobs:
             --exclude-loopback
             --accept 200,204,206,429
             --exclude "^https://www\.linkedin\.com/"
-            --exclude "^https://jdencker\.github\.io/case-studies/node-hub/?$"
-            --exclude "^https://jdencker\.github\.io/case-studies/black-relay/?$"
             "./**/*.md"
             "./**/*.html"
           fail: true
