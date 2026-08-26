@@ -28,21 +28,39 @@ The Node Hub and résumé artifacts do not belong in this repository. The portfo
 
 ```text
 .
-├── index.html                   # Main portfolio page
-├── 404.html                     # Not-found page
-├── .github/workflows/ci.yml     # Automated site quality gate
+├── .github/
+│   └── workflows/
+│       └── ci.yml               # Automated site quality gate
 ├── .editorconfig                # Shared editor formatting defaults
+├── .gitignore
 ├── .htmlvalidate.json           # HTML validation rules used by CI
+├── .nojekyll                    # Disables Jekyll processing
+├── 404.html                     # Not-found page
+├── README.md
+├── index.html                   # Main portfolio page
 ├── case-studies/                # One clean URL per case study
-│   ├── node-hub/index.html
-│   └── resume-as-code/index.html
+│   ├── black-relay/
+│   │   └── index.html
+│   ├── node-hub/
+│   │   └── index.html
+│   └── resume-as-code/
+│       └── index.html
 ├── assets/
 │   ├── css/
 │   │   ├── styles.css           # Site styles and design tokens
-│   │   └── case-study.css       # Node Hub case-study layout
-│   ├── fonts/                    # Self-hosted WOFF2 fonts and licenses
+│   │   └── case-study.css       # Shared case-study layouts
+│   ├── fonts/
+│   │   ├── README.md            # Font sources and usage notes
+│   │   ├── licenses/
+│   │   │   ├── jetbrains-mono-OFL.txt
+│   │   │   ├── newsreader-OFL.txt
+│   │   │   └── space-grotesk-OFL.txt
+│   │   ├── jetbrains-mono-latin.woff2
+│   │   ├── newsreader-italic-latin.woff2
+│   │   ├── newsreader-latin.woff2
+│   │   └── space-grotesk-latin.woff2
 │   ├── images/
-│   │   ├── README.md             # Image sources and trademark notes
+│   │   ├── README.md            # Image sources and trademark notes
 │   │   ├── favicon.svg
 │   │   ├── logo-*.svg           # Architecture technology marks
 │   │   ├── node-hub-dashboard.png
@@ -52,8 +70,7 @@ The Node Hub and résumé artifacts do not belong in this repository. The portfo
 │       ├── repositories.js      # GitHub repository directory
 │       └── scrollspy.js         # Active-section navigation tracking
 ├── robots.txt
-├── sitemap.xml
-└── .nojekyll                    # Disables Jekyll processing
+└── sitemap.xml
 ```
 
 ## Repository directory
@@ -67,6 +84,27 @@ The **Featured** view contains repositories referenced by `assets/js/case-studie
 `assets/js/case-studies.js` is the single source of truth connecting case studies to repositories. A case study may reference more than one repository, and the repository directory derives its case-study badges from this mapping.
 
 Each case study lives at `case-studies/<slug>/index.html`. Keep unfinished stubs marked `noindex`. When a case study is ready, remove that directive and add the page to `sitemap.xml`.
+
+## Continuous integration
+
+The workflow in `.github/workflows/ci.yml` validates HTML, checks JavaScript syntax, and uses Lychee to verify links and referenced assets.
+
+New pages may contain absolute canonical or Open Graph URLs for their eventual GitHub Pages location. During the page's first pull request, that production URL returns `404` because the branch has not been deployed yet. Add a narrowly scoped, temporary Lychee exclusion for that exact URL:
+
+```text
+--exclude "^https://jdencker\.github\.io/case-studies/example/?$"
+```
+
+The exclusion applies only to the not-yet-deployed absolute URL. Local relative links and files should remain covered by the link check.
+
+After the page merges and GitHub Pages finishes deploying it:
+
+1. Confirm the production URL returns a successful response.
+2. Create a new branch from the updated `main` branch.
+3. Remove the temporary exclusion from `.github/workflows/ci.yml`.
+4. Commit the cleanup separately, for example with `chore(ci): remove deployed case study link exclusion`, and merge it through a new pull request.
+
+Do not leave temporary production-URL exclusions in CI after the corresponding pages are live.
 
 ## Local development
 
