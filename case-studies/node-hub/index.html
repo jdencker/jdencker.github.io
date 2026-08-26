@@ -12,6 +12,9 @@
     <meta property="og:image" content="https://jdencker.github.io/assets/images/node-hub-dashboard.png">
     <title>Node Hub — An End-to-End Process Monitoring Platform — Jonathan Dencker</title>
     <link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/css/styles.css">
     <link rel="stylesheet" href="../../assets/css/case-study.css">
   </head>
@@ -22,9 +25,9 @@
         <a class="btn-resume case-back" href="../../#work">← Portfolio</a>
         <nav class="site-nav case-header-nav" aria-label="Case study">
           <a class="navlinks" href="#overview">Overview</a>
+          <a class="navlinks navsecondary" href="#evolution">Project Timeline</a>
           <a class="navlinks navsecondary" href="#hardware">Hardware</a>
           <a class="navlinks navsecondary" href="#architecture">Architecture</a>
-          <a class="navlinks navsecondary" href="#evolution">Development</a>
           <a class="navlinks" href="#preview">Demo</a>
         </nav>
         <a class="brand case-brand" href="#main-content">
@@ -37,16 +40,15 @@
     <main class="case-study" id="main-content" tabindex="-1">
       <aside class="release-note" aria-label="Release approval">
         <span>Release Note</span>
-        <p>This case study has been sanitized to remove sensitive intellectual property and approved for public release by <a href="https://www.swinergy.com/" target="_blank" rel="noopener noreferrer">Swinergy, Inc. ↗</a></p>
+        <p>This case study has been sanitized to remove sensitive intellectual property and approved for public release by Swinergy, Inc.</p>
       </aside>
 
       <header class="case-hero">
-        <div class="eyebrow">Case Study · Fall 2023—Summer 2024</div>
+        <div class="eyebrow">Case Study · Fall 2023—August 2026</div>
         <h1>
           <span class="case-title-primary">Node Hub</span>
-          <span class="case-title-secondary">An End-to-End Process Monitoring Platform</span>
         </h1>
-        <p class="case-deck">Monitoring three stages of an anaerobic digestion prototype—from sensor readings to storage, visualization, backups, and secure remote access.</p>
+        <p class="case-deck">An Automated Process Monitoring Solution in a Capital Constrained Environment.</p>
 
         <dl class="case-meta-compact">
           <div>
@@ -60,42 +62,150 @@
         </dl>
       </header>
 
-      <section class="case-section" id="overview" aria-labelledby="overview-title">
+      <section class="case-section overview-visual" id="overview" aria-labelledby="overview-title">
         <div class="case-section-heading">
           <h2 id="overview-title">Overview</h2>
         </div>
 
-        <div class="executive-grid">
-          <article>
-            <div class="case-kicker">Problem</div>
-            <p>Swinergy was validating a patented, three-stage anaerobic digestion process in a small-scale lab replica to reduce the technical risk of its full-scale build. Collecting readings manually was tedious, and maintaining a consistent hourly cadence required team members to check the process at odd hours, including overnight through remote cameras. For a small team with limited capacity, time spent collecting data was time not spent improving the process.</p>
+        <div class="overview-grid">
+          <article class="overview-column">
+            <div class="overview-label">
+              <span class="overview-number">01</span>
+              <span class="overview-category">Context</span>
+              <span class="overview-tick" aria-hidden="true"></span>
+            </div>
+            <p class="overview-lede">A seed-stage team proving out its system prior to a full-scale build.</p>
+            <ul class="overview-list">
+              <li>Prototype system was built to dial in system specifications and decrease technical risk of the large-scale build.</li>
+              <li>Lean capital and staff; every hour spent on upkeep was an hour not spent on the process.</li>
+            </ul>
           </article>
-          <article>
-            <div class="case-kicker">Solution</div>
-            <p>I designed and deployed a monitoring platform that collected sensor readings at configurable intervals, stored them in a database, moved backup data files to cloud storage, and gave the team a single view of current conditions and historical trends. A secure VPN provided remote access to the platform and its sensor nodes.</p>
+
+          <div class="overview-rule" aria-hidden="true"><span></span></div>
+
+          <article class="overview-column">
+            <div class="overview-label">
+              <span class="overview-number">02</span>
+              <span class="overview-category">Problem</span>
+              <span class="overview-tick" aria-hidden="true"></span>
+            </div>
+            <p class="overview-lede">Hourly manual checks—and no affordable way to automate them.</p>
+            <ul class="overview-list">
+              <li>Reliable operation depended on someone walking the line, around the clock.</li>
+              <li>Industrial monitoring and control stacks demanded capital and integration time the stage couldn’t carry.</li>
+            </ul>
           </article>
-          <article>
-            <div class="case-kicker">Outcome</div>
-            <p>The deployed platform enabled remote monitoring and replaced manual data recording with an automated, reliable process. The successful prototype reduced the technical risk of scaling the process and supported Swinergy’s move toward its first full-scale facility.</p>
+
+          <div class="overview-rule" aria-hidden="true"><span></span></div>
+
+          <article class="overview-column">
+            <div class="overview-label">
+              <span class="overview-number">03</span>
+              <span class="overview-category">Solution</span>
+              <span class="overview-tick" aria-hidden="true"></span>
+            </div>
+            <p class="overview-lede">A reliable, cost-efficient, end-to-end monitoring platform.</p>
+            <ul class="overview-list">
+              <li>Automated sensor collection and durable storage in place of the clipboard.</li>
+              <li>Real-time dashboards, alerting, and secure remote access.</li>
+            </ul>
           </article>
         </div>
 
-        <div class="metric-grid" role="group" aria-label="Project outcomes">
-          <div class="metric">
-            <strong>&lt;$1K</strong>
-            <span>incremental monitoring hardware, excluding existing sensors</span>
+        <article class="overview-outcome">
+          <div class="overview-label">
+            <span class="overview-number">04</span>
+            <span class="overview-category">Outcome</span>
+            <span class="overview-tick" aria-hidden="true"></span>
           </div>
-          <div class="metric">
-            <strong>3</strong>
-            <span>independently monitored process stages</span>
+          <div class="overview-metrics">
+            <div class="overview-metric">
+              <div class="overview-figure">30 <span class="overview-unit">staff-hours / week</span></div>
+              <div class="overview-subhead">Redirected from manual monitoring</div>
+            </div>
+            <div class="overview-metric">
+              <div class="overview-figure">July 2026</div>
+              <div class="overview-subhead">De-risked full-scale facility opened</div>
+            </div>
+            <div class="overview-metric">
+              <div class="overview-kicker">In short</div>
+              <p class="overview-summary">Industrial, production-grade capability, delivered on a startup budget.</p>
+            </div>
           </div>
-          <div class="metric">
-            <strong>5</strong>
-            <span>Raspberry Pis across sensing, hosting, and secure access</span>
+        </article>
+      </section>
+
+      <section class="tl" id="evolution" aria-labelledby="evolution-title">
+        <div class="tl-head">
+          <h2 id="evolution-title">Project Timeline</h2>
+          <div class="tl-span">Fall 2023 — Aug 2026</div>
+        </div>
+
+        <div class="tl-grid">
+          <div class="tl-stage">
+            <div class="tl-meta">
+              <span class="tl-num">01</span>
+              <span class="tl-date">Fall — Dec 2023</span>
+            </div>
+            <div class="tl-axis" aria-hidden="true">
+              <span class="tl-node"></span>
+              <span class="tl-line"></span>
+            </div>
+            <h3>Discovery</h3>
+            <p>Defined the operational needs, lab constraints, and success criteria for an affordable monitoring system.</p>
           </div>
-          <div class="metric">
-            <strong>4 months</strong>
-            <span>from the first lab deployment to V3</span>
+
+          <div class="tl-stage">
+            <div class="tl-meta">
+              <span class="tl-num">02</span>
+              <span class="tl-date">Feb 2024</span>
+            </div>
+            <div class="tl-axis" aria-hidden="true">
+              <span class="tl-node"></span>
+              <span class="tl-line"></span>
+            </div>
+            <h3>V1 Deployed</h3>
+            <p>Replaced hourly manual recording with automated data collection and remote visibility.</p>
+          </div>
+
+          <div class="tl-stage">
+            <div class="tl-meta">
+              <span class="tl-num">03</span>
+              <span class="tl-date">Spring 2024</span>
+            </div>
+            <div class="tl-axis" aria-hidden="true">
+              <span class="tl-node"></span>
+              <span class="tl-line"></span>
+            </div>
+            <h3>Support and Iteration</h3>
+            <p>Used operator feedback and live failures to improve reliability, diagnostics, and maintainability.</p>
+          </div>
+
+          <div class="tl-stage">
+            <div class="tl-meta">
+              <span class="tl-num">04</span>
+              <span class="tl-date">Summer 2024</span>
+            </div>
+            <div class="tl-axis" aria-hidden="true">
+              <span class="tl-node"></span>
+              <span class="tl-line"></span>
+            </div>
+            <h3>Final Version Deployed</h3>
+            <p>Released the final prototype version with more resilient recovery and simpler fleet management.</p>
+          </div>
+
+          <div class="tl-stage">
+            <div class="tl-meta">
+              <span class="tl-num">05</span>
+              <span class="tl-date">Summer 2024 — Aug 2026</span>
+            </div>
+            <div class="tl-axis" aria-hidden="true">
+              <span class="tl-node"></span>
+              <span class="tl-line"></span>
+              <span class="tl-end"></span>
+            </div>
+            <h3>Advise &amp; Assist on Full-Scale Facility Build-out</h3>
+            <p>Continued advising Swinergy as lessons from the lab prototype informed its first full-scale facility.</p>
           </div>
         </div>
       </section>
@@ -106,7 +216,7 @@
         </div>
         <div class="case-copy-grid">
           <div>
-            <p class="case-lead">Swinergy, like all early-stage startups, was sensitive to unnecessary capital costs. My design delivered production results for a fraction of the cost.</p>
+            <p class="case-lead">Swinergy, like all early-stage startups, was sensitive to unnecessary capital costs. My implementation delivered production-grade results for a fraction of the cost.</p>
           </div>
           <div class="case-prose">
             <p>Raspberry Pis are inexpensive Linux computers running from SD cards. The prototype used five of them, along with inexpensive cabling and an approximately $10 EZO USB carrier board for each sensor. The incremental monitoring hardware cost less than $1,000. Industrial controls were a better choice for a full-scale facility, but were too expensive before the process had been proven.</p>
@@ -288,113 +398,17 @@
         </figure>
       </section>
 
-      <section class="case-section" id="evolution" aria-labelledby="evolution-title">
-        <div class="case-section-heading">
-          <h2 id="evolution-title">Iterative Development</h2>
-        </div>
-        <p class="case-lead evolution-intro">From February through June 2024, operator feedback and real hardware failures drove changes to recovery and configuration.</p>
-
-        <ol class="timeline">
-          <li>
-            <div class="timeline-date">Fall—Dec 2023</div>
-            <div>
-              <h3>Discovery</h3>
-              <p>Mapped the manual workflow, lab constraints, sensors, process stages, and required data.</p>
-            </div>
-          </li>
-          <li>
-            <div class="timeline-date">Feb 2024 · V1</div>
-            <div>
-              <h3>V1 Deployed</h3>
-              <p>The first sensor server maintained long-lived hardware connections. EZO carrier serials were configured in both the Hub and sensor server, so replacing a carrier required changes in two places. When a stale connection could not recover, the Pi restarted and systemd brought the API back automatically.</p>
-            </div>
-          </li>
-          <li>
-            <div class="timeline-date">Spring 2024</div>
-            <div>
-              <h3>Support and Iteration</h3>
-              <p>Updates separated sensor failures from node failures, improved visibility into unreachable hardware, and removed duplicated carrier configuration.</p>
-            </div>
-          </li>
-          <li>
-            <div class="timeline-date">Summer 2024 · V3</div>
-            <div>
-              <h3>V3 Deployed</h3>
-              <p>The Hub became the sole owner of fleet configuration and carrier-to-role mapping. Sensor servers discovered the EZO USB carriers attached to each Pi and served their readings. Individual connections could recover without restarting the node.</p>
-            </div>
-          </li>
-        </ol>
-      </section>
-
       <section class="case-section" id="preview" aria-labelledby="preview-title">
-        <div class="case-section-heading">
+        <div class="case-section-heading demo-section-heading">
           <h2 id="preview-title">Capability Demo</h2>
-        </div>
-        <div class="preview-heading">
-          <div>
-            <p class="case-lead">The demo uses the production React frontend with simulated data bundled into the frontend.</p>
-            <p class="preview-note">No backend, hardware, or live lab system is connected. In order to better demonstrate capability across a variety of node status scenarios, it shows one online node, one unreachable node with interrupted history, and one unconfigured node.</p>
-          </div>
           <a class="case-button" href="https://jdencker.github.io/node-hub/" target="_blank" rel="noopener noreferrer">Open demo ↗</a>
         </div>
 
-        <figure class="product-shot">
-          <img src="../../assets/images/node-hub-dashboard.png" alt="Node Hub dashboard showing current pH and temperature readings, an unreachable node, an unconfigured node, and recent trend charts" width="2223" height="1115" loading="lazy">
-          <figcaption>The same frontend ships in production and demo builds; only the data transport changes.</figcaption>
-        </figure>
-
-        <div class="capability-list">
-          <div><strong>Current readings and node reachability</strong></div>
-          <div><strong>Configurable trend history</strong></div>
-          <div><strong>Polling schedules and sensor configuration</strong></div>
-          <div><strong>Raw readings and CSV backup downloads</strong></div>
-        </div>
-      </section>
-
-      <section class="case-section" id="code" aria-labelledby="code-title">
-        <div class="case-section-heading">
-          <h2 id="code-title">Codebases</h2>
-        </div>
-        <p class="case-lead code-intro">The deployed system is represented by three public repositories.</p>
-
-        <div class="code-grid">
-          <article>
-            <div class="code-index">Edge · 01—03</div>
-            <h3>atlas-scientific-sensor-pi-api</h3>
-            <p>Discovers FTDI-based Atlas Scientific EZO pH and RTD circuits, manages hardware communication and per-device recovery, and exposes serial-addressed readings through FastAPI.</p>
-            <div class="tags">
-              <span class="chip">Python</span>
-              <span class="chip">FastAPI</span>
-              <span class="chip">FTDI / UART</span>
-              <span class="chip">systemd</span>
-            </div>
-            <a class="case-button repo-button" href="https://github.com/jdencker/atlas-scientific-sensor-pi-api" target="_blank" rel="noopener noreferrer">View repository ↗</a>
-          </article>
-          <article>
-            <div class="code-index">Application · 04</div>
-            <h3>node-hub</h3>
-            <p>Polls the sensor fleet, owns configuration and role mapping, persists time-series data, generates daily CSV backups, and serves the operator interface as a Docker Compose stack.</p>
-            <div class="tags">
-              <span class="chip">FastAPI</span>
-              <span class="chip">React</span>
-              <span class="chip">Postgres</span>
-              <span class="chip">Docker</span>
-              <span class="chip">nginx</span>
-            </div>
-            <a class="case-button repo-button" href="https://github.com/jdencker/node-hub" target="_blank" rel="noopener noreferrer">View repository ↗</a>
-          </article>
-          <article>
-            <div class="code-index">Network · 05</div>
-            <h3>rpi-wireguard-vpn-router</h3>
-            <p>Creates an encrypted entry point for approved remote devices, with public-key identity, IP forwarding, narrow peer routes, and NAT into the existing lab network.</p>
-            <div class="tags">
-              <span class="chip">WireGuard</span>
-              <span class="chip">Linux routing</span>
-              <span class="chip">iptables</span>
-              <span class="chip">PKI</span>
-            </div>
-            <a class="case-button repo-button" href="https://github.com/jdencker/rpi-wireguard-vpn-router" target="_blank" rel="noopener noreferrer">View repository ↗</a>
-          </article>
+        <div class="demo-layout">
+          <figure class="product-shot">
+            <img src="../../assets/images/node-hub-dashboard.png" alt="Node Hub dashboard showing current pH and temperature readings, an unreachable node, an unconfigured node, and recent trend charts" width="2223" height="1115" loading="lazy">
+          </figure>
+          <p class="demo-context">No backend, hardware, or live lab system is connected. In order to better demonstrate capability across a variety of node status scenarios, it shows one online node, one unreachable node with interrupted history, and one unconfigured node.</p>
         </div>
       </section>
 
