@@ -47,6 +47,7 @@ jobs:
             --accept 200,204,206,429
             --exclude "^https://www\.linkedin\.com/"
             --exclude "^https://jdencker\.github\.io/case-studies/node-hub/?$"
+            --exclude "^https://jdencker\.github\.io/case-studies/black-relay/?$"
             "./**/*.md"
             "./**/*.html"
           fail: true

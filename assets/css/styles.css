@@ -93,6 +93,11 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .navlinks::after {transition: none;}
+  .card,
+  .card-actions,
+  .card-client-name,
+  .contact-link,
+  .contact-arrow { transition: none; }
   ::view-transition-group(site-brand) { animation-duration: 0s; }
 }
 
@@ -268,20 +273,11 @@ main {
   letter-spacing: -.018em;
 }
 
-.hero-sub {
-  margin: 12px 0 0;
-  max-width: 620px;
-  font-size: 17px;
-  line-height: 1.55;
-  color: var(--muted);
-  text-wrap: pretty;
-}
-
 .signal {
   margin-top: 14px;
   max-width: 660px;
   font: 12px/1.7 'JetBrains Mono', monospace;
-  color: var(--faint);
+  color: var(--muted);
 }
 
 .hero-contact {
@@ -300,9 +296,29 @@ main {
   align-items: center;
   gap: 9px;
   color: var(--muted);
+  transition: color 140ms ease;
 }
 
-.contact-link:hover { color: var(--text); }
+.contact-link:is(:hover, :focus-visible) { color: var(--text); }
+
+.contact-link:is(:hover, :focus-visible) .contact-label {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.contact-arrow {
+  display: inline-block;
+  margin-left: -4px;
+  opacity: 0;
+  transform: translate(-3px, 2px);
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.contact-link:is(:hover, :focus-visible) .contact-arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
 
 .contact-loc {
   display: flex;
@@ -358,14 +374,22 @@ main {
 }
 
 .card {
+  position: relative;
+  isolation: isolate;
   border: 1px solid var(--line);
   background: var(--surface);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
 }
 
-.card:hover { border-color: var(--line-strong); }
+.card:is(:hover, :focus-within) {
+  border-color: var(--text);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--text);
+}
 
 .card-inner {
   padding: 20px;
@@ -379,6 +403,7 @@ main {
   display: flex;
   align-items: baseline;
   gap: 9px;
+  padding-right: 120px;
   flex-wrap: wrap;
 }
 
@@ -404,12 +429,123 @@ main {
   padding: 2px 7px;
 }
 
+.card--featured .card-inner {
+  gap: 14px;
+  padding: 22px;
+}
+
+.card--featured .card-title {
+  gap: 10px;
+}
+
+.card--featured .card-index {
+  font-size: 11px;
+}
+
+.card--featured .card-title h3 {
+  font-size: 19px;
+}
+
+.card--featured .card-badge {
+  padding: 2px 7px;
+  font-size: 10px;
+}
+
+.card--upcoming .card-title {
+  padding-right: 0;
+}
+
+.card--upcoming .card-title h3 {
+  font-size: 19px;
+}
+
+.card-client {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 2px 0 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.card-client-primary {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.card-client-label,
+.card-client-details {
+  font: 10px 'JetBrains Mono', monospace;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.card-client-name {
+  position: relative;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--text);
+  font: 500 11px 'JetBrains Mono', monospace;
+  pointer-events: auto;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+
+.card-client-name:hover {
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--bg);
+}
+
+.card-client-name:focus-visible {
+  outline-color: var(--text);
+}
+
+.card-client-details {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
 .card-body {
   margin: 0;
   font-size: 13px;
   line-height: 1.6;
   color: var(--muted);
   flex: 1;   /* equalizes card heights */
+}
+
+.card--featured .card-body {
+  max-width: 820px;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.card-disclaimer {
+  display: grid;
+  gap: 6px;
+  margin-top: 5px;
+  padding: 12px 14px;
+  border: 2px solid var(--text);
+  background: var(--text);
+  color: var(--bg);
+}
+
+.card-disclaimer strong {
+  font: 500 13px 'JetBrains Mono', monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.card-disclaimer span {
+  font-size: 11.5px;
+  line-height: 1.55;
 }
 
 .card-body code {
@@ -433,17 +569,34 @@ main {
 }
 
 .card-actions {
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  align-items: center;
-  gap: 16px;
-  margin-top: 5px;
+  position: absolute;
+  z-index: 2;
+  top: 20px;
+  right: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  visibility: hidden;
+  transition: opacity 140ms ease, transform 140ms ease, visibility 0s linear 140ms;
+}
+
+.card--featured .card-actions {
+  top: 22px;
+  right: 22px;
+}
+
+.card:is(:hover, :focus-within) .card-actions {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 .card-primary {
+  display: inline-flex;
   padding: 6px 11px;
-  background: transparent;
-  color: var(--text);
+  background: var(--text);
+  color: var(--bg);
   border: 1px solid var(--text);
   text-align: center;
   text-decoration: none;
@@ -451,41 +604,40 @@ main {
   white-space: nowrap;
 }
 
-.card-primary:hover {
+.card-select {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  cursor: pointer;
+}
+
+.card-select:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: -4px;
+}
+
+.card:has(.card-client-name:is(:hover, :focus-visible)) {
+  border-color: var(--line);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: none;
+}
+
+.card:has(.card-client-name:is(:hover, :focus-visible)) .card-actions {
+  opacity: 0;
+  transform: translateY(-4px);
+  visibility: hidden;
+}
+
+.card:has(.card-client-name:is(:hover, :focus-visible)) .card-client-name {
+  border-color: var(--text);
   background: var(--text);
   color: var(--bg);
-  border-color: var(--text);
 }
 
-.card-secondary {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 14px;
-  flex-wrap: nowrap;
-  min-width: 0;
-}
+/* ===== Editorial content ===== */
 
-.card-link {
-  margin-top: 4px;
-  text-decoration: none;
-  font: 500 11px 'JetBrains Mono', monospace;
-  color: var(--faint);
-  border-bottom: 1px solid var(--btn-line);
-  padding-bottom: 2px;
-  align-self: flex-start;
-}
-
-.card-secondary .card-link { margin-top: 0; }
-
-.card-link:hover {
-  color: var(--text);
-  border-color: var(--text);
-}
-
-/* ===== Approach ===== */
-
-.approach-body {
+.section-body {
   margin: 0;
   max-width: 760px;
   font-size: 15px;
@@ -494,28 +646,19 @@ main {
   text-wrap: pretty;
 }
 
-.pull-quote {
-  margin: 28px 0 0;
-  padding: 4px 0 4px 26px;
-  border-left: 2px solid var(--text);
-  max-width: 700px;
+.professional-summary {
+  padding: 28px 0 0;
 }
 
-.pull-quote blockquote {
-  margin: 0;
-  font-family: 'Newsreader', serif;
-  font-weight: 400;
-  font-size: 25px;
-  line-height: 1.35;
-  letter-spacing: -.01em;
+.professional-summary .section-body {
+  max-width: 760px;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.professional-summary strong {
   color: var(--text);
-  text-wrap: pretty;
-}
-
-.pull-quote figcaption {
-  margin-top: 12px;
-  font: 11.5px 'JetBrains Mono', monospace;
-  color: var(--faint);
+  font-weight: 600;
 }
 
 /* ===== Experience & Education rows ===== */
@@ -868,10 +1011,18 @@ main {
     grid-template-columns: 1fr;
     gap: 26px;
   }
+  .card--featured .card-inner { padding: 22px; }
+  .card-client-primary {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
 }
 
-@media (max-width: 420px) {
-  .card-actions { grid-template-columns: 1fr; }
-  .card-primary { justify-self: start; }
-  .card-secondary { justify-content: flex-start; }
+@media (hover: none) {
+  .card .card-actions {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
 }

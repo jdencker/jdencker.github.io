@@ -6,12 +6,10 @@
     <title>Jon Dencker</title>
     <meta
       name="description"
-      content="Building coherent systems from ambiguous problems."
     >
     <meta name="theme-color" content="#fbfbf9">
     <meta property="og:site_name" content="Jon Dencker">
     <meta property="og:title" content="Jon Dencker">
-    <meta property="og:description" content="Building coherent systems from ambiguous problems.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jdencker.github.io/">
     <meta property="og:image" content="https://jdencker.github.io/assets/images/portfolio-preview.png">
@@ -22,7 +20,6 @@
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Jon Dencker">
-    <meta name="twitter:description" content="Building coherent systems from ambiguous problems.">
     <meta name="twitter:image" content="https://jdencker.github.io/assets/images/portfolio-preview.png">
     <meta name="twitter:image:alt" content="Jon Dencker">
     <link rel="canonical" href="https://jdencker.github.io/">
@@ -40,10 +37,10 @@
         </a>
         <nav class="site-nav" aria-label="Primary">
           <a class="navlinks" href="#work">Work</a>
-          <a class="navlinks navsecondary" href="#approach">Approach</a>
           <a class="navlinks navsecondary" href="#experience">Experience</a>
           <a class="navlinks navsecondary" href="#education">Education</a>
           <a class="navlinks" href="#repos">Repos</a>
+          <a class="navlinks navsecondary" href="#about">About</a>
           <a class="navlinks" href="#contact">Contact</a>
           <a
             class="btn-resume"
@@ -61,11 +58,10 @@
 
       <!-- ===== Hero ===== -->
       <section class="hero">
-        <div class="eyebrow">Building&ensp;|&ensp;Learning&ensp;|&ensp;Leading</div>
+        <div class="eyebrow">Learning&ensp;|&ensp;Building&ensp;|&ensp;Leading</div>
         <div class="hero-grid">
           <div>
             <h1>Jonathan Dencker</h1>
-            <p class="hero-sub">Building reliable, data-first systems from the ground up.</p>
             <div class="signal">West Point Top EE Graduate 2017&ensp;|&ensp;Carnegie Mellon AI/ML&ensp;|&ensp;PBT 30 Under 30&ensp;|&ensp;TS/SCI</div>
           </div>
           <div class="hero-contact">
@@ -86,7 +82,8 @@
                   d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"
                 />
               </svg>
-              <span>@jdencker</span>
+              <span class="contact-label">@jdencker</span>
+              <span class="contact-arrow" aria-hidden="true">↗</span>
             </a>
             <a
               class="contact-link"
@@ -105,7 +102,8 @@
                   d="M13.6 0H2.4A2.4 2.4 0 0 0 0 2.4v11.2A2.4 2.4 0 0 0 2.4 16h11.2a2.4 2.4 0 0 0 2.4-2.4V2.4A2.4 2.4 0 0 0 13.6 0ZM5 13.3H2.7V6.1H5v7.2ZM3.85 5.1a1.34 1.34 0 1 1 0-2.68 1.34 1.34 0 0 1 0 2.68Zm9.45 8.2h-2.3V9.8c0-.86-.02-1.97-1.2-1.97-1.2 0-1.39.94-1.39 1.91v3.56H6.13V6.1h2.2v.99h.03c.31-.58 1.06-1.2 2.18-1.2 2.33 0 2.76 1.54 2.76 3.53v3.88Z"
                 />
               </svg>
-              <span>jonathan-dencker</span>
+              <span class="contact-label">jonathan-dencker</span>
+              <span class="contact-arrow" aria-hidden="true">↗</span>
             </a>
             <div class="contact-loc">
               <svg
@@ -136,67 +134,62 @@
 
         <div class="trio">
 
-          <article class="card">
+          <article class="card card--featured">
             <div class="card-inner">
               <div class="card-title">
                 <span class="card-index">01</span>
                 <h3>Node Hub</h3>
                 <span class="card-badge">Flagship</span>
               </div>
-              <p class="card-body">Central hub for a fleet of Raspberry Pi sensor nodes. A FastAPI backend polls each node on a schedule, owns all naming and sensor-role mapping, and records time-series measurements in Postgres; a React dashboard handles live monitoring and hardware control — LED flash, device recovery, node reboot. Ships as a Docker Compose stack behind an nginx same-origin <code>/api</code> proxy — no CORS layer at all, by construction.</p>
-              <div class="tags">
-                <span class="chip">FastAPI</span>
-                <span class="chip">React</span>
-                <span class="chip">PostgreSQL</span>
-                <span class="chip">Docker</span>
-                <span class="chip">nginx</span>
-              </div>
-              <div class="card-actions">
-                <a class="card-primary" href="./case-studies/node-hub/">Case study →</a>
-                <div class="card-secondary">
-                  <a class="card-link" href="https://jdencker.github.io/node-hub/" target="_blank" rel="noopener noreferrer">Interactive demo ↗</a>
-                  <a class="card-link" href="https://github.com/jdencker/node-hub" target="_blank" rel="noopener noreferrer">Codebase ↗</a>
+              <div class="card-client">
+                <div class="card-client-primary">
+                  <span class="card-client-label">Customer</span>
+                  <a class="card-client-name" href="https://www.swinergy.com/" target="_blank" rel="noopener noreferrer">Swinergy, Inc. ↗</a>
+                </div>
+                <div class="card-client-details">
+                  <span>Seed-round startup</span>
+                  <span aria-hidden="true">|</span>
+                  <span>3 employees</span>
                 </div>
               </div>
+              <p class="card-body">This system consists of three main segments — which together, automate data collection and provide real-time insights into a patented 3-stage methane production process. Each stage's sensors connect to a node server, which makes readings accessible via API.  A central hub captures real-time readings and alerts, visualizes the current state, and stores data both locally and in the cloud. Finally a VPN service enables secure remote access, without exposing the system to the public internet.</p>
+              <div class="card-actions">
+                <span class="card-primary">Case study →</span>
+              </div>
             </div>
+            <a class="card-select" href="./case-studies/node-hub/" aria-label="View the Node Hub case study"></a>
           </article>
 
-          <article class="card">
+          <article class="card card--upcoming">
             <div class="card-inner">
               <div class="card-title">
                 <span class="card-index">02</span>
-                <h3>Résumé as Code</h3>
+                <h3>Safehouse Security System</h3>
               </div>
-              <p class="card-body">The resume itself as an engineering artifact: a single-page LaTeX document with reproducible Docker builds on pinned TeXLive, a lint suite pairing LaTeX-aware spellcheck with structural PDF validation, a CI-gated main branch, and a two-phase versioned release workflow that publishes each edition to GitHub Pages.</p>
-              <div class="tags">
-                <span class="chip">LaTeX</span>
-                <span class="chip">GitHub Actions</span>
-                <span class="chip">Make</span>
-                <span class="chip">Docker</span>
-              </div>
-              <div class="card-actions">
-                <a class="card-primary" href="./case-studies/resume-as-code/">Case study →</a>
-                <div class="card-secondary">
-                  <a class="card-link" href="https://jdencker.github.io/resume/" target="_blank" rel="noopener noreferrer">View résumé ↗</a>
-                  <a class="card-link" href="https://github.com/jdencker/resume" target="_blank" rel="noopener noreferrer">Codebase ↗</a>
+              <div class="card-client">
+                <div class="card-client-primary">
+                  <span class="card-client-label">Sponsor</span>
+                  <a class="card-client-name" href="https://arrowheadresearch.org/black-relay/" target="_blank" rel="noopener noreferrer">Arrowhead Research ↗</a>
+                </div>
+                <div class="card-client-details">
+                  <span>Non-profit</span>
+                  <span aria-hidden="true">|</span>
+                  <span>Black Relay 2026 Build Event</span>
                 </div>
               </div>
+              <p class="card-body">Developing a portable, survivable security and site-awareness system for temporary safehouses as part of Black Relay 2026. The effort is intended to combine sensor-driven detection, resilient local services and communications, normalized alerts, and a clear operator view that remains useful when links, components, or power degrade.</p>
+              <div class="card-disclaimer" role="note">
+                <strong>Currently under development</strong>
+                <span>Check out the case study to see our progress</span>
+              </div>
+              <div class="card-actions">
+                <span class="card-primary">Case study →</span>
+              </div>
             </div>
+            <a class="card-select" href="./case-studies/black-relay/" aria-label="View the Safehouse Security System case study"></a>
           </article>
 
         </div>
-      </section>
-
-      <!-- ===== Approach ===== -->
-      <section class="section" id="approach" aria-labelledby="approach-title">
-        <div class="section-head">
-          <h2 id="approach-title">Approach</h2>
-        </div>
-        <p class="approach-body">Whether I'm shipping a Raspberry Pi sensor network for an industrial process or the data pipelines an Army command runs on, I build the same way: understand the typically messy current state, ship something that works, then rebuild it until it's right. Across roles as an infantry officer, AI product lead, and data architect, the work has been consistent: bring structure to ambiguous problems, decide what matters first, and build coherent systems teams can rely on. The hardest part is rarely the technology. It's leading the organizational change required to adopt it — often without formal authority — by making the case, communicating the value, and delivering results people can see.</p>
-        <figure class="pull-quote">
-          <blockquote>“The best technical captain I've seen in my career.”</blockquote>
-          <figcaption>— Commanding General, U.S. Army Recruiting Command</figcaption>
-        </figure>
       </section>
 
       <!-- ===== Experience ===== -->
@@ -334,6 +327,14 @@
         <noscript>
           <p class="repo-status">Repository data requires JavaScript. <a href="https://github.com/jdencker">View all repositories on GitHub ↗</a></p>
         </noscript>
+      </section>
+
+      <!-- ===== About ===== -->
+      <section class="section" id="about" aria-labelledby="about-title">
+        <div class="section-head">
+          <h2 id="about-title">About</h2>
+        </div>
+        <p class="section-body">I grew up in Nashville and now live in Chicago with my wife and Lincoln, our Bernese Mountain Dog. I’m an avid traveler, skier, and scuba diver. At home, I enjoy reading, playing guitar, running along Lake Michigan, and trying to keep up with Chicago's restaurant scene.</p>
       </section>
 
     </main>
