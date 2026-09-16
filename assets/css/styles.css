@@ -334,6 +334,8 @@ main {
   scroll-margin-top: 80px;   /* clears the sticky header on anchor jumps */
 }
 
+.section--nested { padding-bottom: 0; }
+
 .section-head {
   display: flex;
   align-items: baseline;
@@ -720,24 +722,6 @@ main {
   max-width: 220px;
   line-height: 1.5;
 }
-
-/* Advisory & Consulting subsection */
-
-.advisory { margin-top: 30px; }
-
-.advisory h3 {
-  margin: 0;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--line-strong);
-  font: 500 11px 'JetBrains Mono', monospace;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--faint);
-}
-
-.advisory .row { padding: 14px 0; }
-
-.advisory .row-title { font-size: 15px; }
 
 /* Education degree blocks */
 
