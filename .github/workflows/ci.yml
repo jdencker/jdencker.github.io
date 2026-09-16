@@ -27,27 +27,5 @@ jobs:
         with:
           node-version: 24
 
-      - name: Validate HTML
-        run: npx --yes html-validate@11.6.2 "*.html" "case-studies/**/*.html"
-
-      - name: Validate JavaScript syntax
-        run: |
-          node --check assets/js/case-studies.js
-          node --check assets/js/repositories.js
-          node --check assets/js/scrollspy.js
-
-      - name: Check links and referenced assets
-        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2
-        with:
-          # LinkedIn blocks automated link checkers, causing false CI failures.
-          args: >-
-            --root-dir "${{ github.workspace }}"
-            --verbose
-            --no-progress
-            --exclude-loopback
-            --accept 200,204,206,429
-            --exclude "^https://www\.linkedin\.com/"
-            "./**/*.md"
-            "./**/*.html"
-          fail: true
-          failIfEmpty: true
+      - name: Run quality checks
+        run: make check

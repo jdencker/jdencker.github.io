@@ -87,7 +87,13 @@ Each case study lives at `case-studies/<slug>/index.html`. Keep unfinished stubs
 
 ## Continuous integration
 
-The workflow in `.github/workflows/ci.yml` validates HTML, checks JavaScript syntax, and uses Lychee to verify links and referenced assets.
+The workflow in `.github/workflows/ci.yml` runs `make check`, which validates HTML, checks JavaScript syntax, and uses Lychee to verify links and referenced assets. Run the same quality gate locally from the repository root:
+
+```bash
+make check
+```
+
+The link check runs Lychee in Docker, so Docker must be available locally.
 
 New pages may contain absolute canonical or Open Graph URLs for their eventual GitHub Pages location. During the page's first pull request, that production URL returns `404` because the branch has not been deployed yet. Add a narrowly scoped, temporary Lychee exclusion for that exact URL:
 
